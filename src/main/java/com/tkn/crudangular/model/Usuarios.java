@@ -18,7 +18,7 @@ public class Usuarios {
 
     @Column(length = 255, nullable = false)
     private String senha;
-
+// sssss
     @Column(length = 255, nullable = false)
     private String cidade;
 
