@@ -2,6 +2,7 @@ package com.tkn.crudangular.controller;
 
 import com.tkn.crudangular.model.Course;
 import com.tkn.crudangular.repository.ICourseRepository;
+import com.tkn.crudangular.service.CoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -13,22 +14,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
+    private final CoursesService service;
 
-    private final ICourseRepository courseRepository;
-
-    public CourseController(ICourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
+    public CourseController(CoursesService coursesService) {
+        this.service = coursesService;
     }
 
     @GetMapping
     public List<Course> list () {
-        return courseRepository.findAll();
+        return service.getAll();
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Course create(@RequestBody Course course) {
-        return courseRepository.save(course);
+        return service.create(course);
         //return ResponseEntity.status(HttpStatus.CREATED).body(courseRepository.save(course));
     }
 }
