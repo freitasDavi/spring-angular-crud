@@ -1,8 +1,11 @@
 package com.tkn.crudangular.controller;
 
 import com.tkn.crudangular.exceptions.UserAlreadyExistsException;
+import com.tkn.crudangular.model.User;
 import com.tkn.crudangular.model.dtos.AuthenticationDTO;
+import com.tkn.crudangular.model.dtos.LoginResponse;
 import com.tkn.crudangular.model.dtos.RegisterDTO;
+import com.tkn.crudangular.service.TokenService;
 import com.tkn.crudangular.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +21,15 @@ public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
     private final UserService _service;
+    private final TokenService _tokenService;
 
     public AuthenticationController(
             AuthenticationManager authenticationManager,
-            UserService userService) {
+            UserService userService,
+            TokenService tokenService) {
         this.authenticationManager = authenticationManager;
         this._service = userService;
+        this._tokenService = tokenService;
     }
 
     @PostMapping("/login")
@@ -31,7 +37,9 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(dto.login(), dto.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = _tokenService.generateToken((User) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 
     @PostMapping("/register")
