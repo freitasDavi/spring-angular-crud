@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -30,5 +31,20 @@ public class CourseController {
     public Course create(@RequestBody Course course) {
         return courseRepository.save(course);
         //return ResponseEntity.status(HttpStatus.CREATED).body(courseRepository.save(course));
+    }
+
+    @GetMapping("{id}")
+    public Optional<Course> getById(@PathVariable Long id) {
+        return courseRepository.findById(id);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Long id) {
+        System.out.println("Esse é o valor do Id" + id);
+        //var deletedCourse = courseRepository.findById(id);
+
+        courseRepository.deleteById(id);
+
+        return;
     }
 }
