@@ -19,7 +19,18 @@ public class CoursesService {
         return _courseRepository.findAll();
     }
 
+    public Course getById(Long id) {
+        var course = _courseRepository.findById(id);
+
+        return course.orElse(null);
+
+    }
+
     public Course create(Course newCourse) {
         return _courseRepository.save(newCourse);
+    }
+
+    public void remove (Long id) {
+        _courseRepository.deleteById(id);
     }
 }

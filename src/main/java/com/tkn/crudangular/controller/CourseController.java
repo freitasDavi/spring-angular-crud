@@ -34,8 +34,8 @@ public class CourseController {
     }
 
     @GetMapping("{id}")
-    public Optional<Course> getById(@PathVariable Long id) {
-        return courseRepository.findById(id);
+    public Course getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @DeleteMapping("{id}")
@@ -43,7 +43,7 @@ public class CourseController {
         System.out.println("Esse é o valor do Id" + id);
         //var deletedCourse = courseRepository.findById(id);
 
-        courseRepository.deleteById(id);
+        service.remove(id);
 
         return;
     }

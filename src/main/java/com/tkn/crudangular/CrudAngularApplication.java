@@ -23,21 +23,21 @@ public class CrudAngularApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/api/**")
 						.allowedOrigins("http://localhost:3000")
-						.allowedMethods("*");
-				//WebMvcConfigurer.super.addCorsMappings(registry);
+							.allowedMethods("*");
+					//WebMvcConfigurer.super.addCorsMappings(registry);
 			}
 		};
 	}
 
-	@Bean
-	CommandLineRunner initDatabase(ICourseRepository courseRepository) {
-		return args -> {
-			courseRepository.deleteAll();
-			Course c = new Course();
-			c.setName("Angular com Spring");
-			c.setCategory("front-end");
-			courseRepository.save(c);
-		};
-	}
+//	@Bean
+//	CommandLineRunner initDatabase(ICourseRepository courseRepository) {
+//		return args -> {
+//			courseRepository.deleteAll();
+//			Course c = new Course();
+//			c.setName("Angular com Spring");
+//			c.setCategory("front-end");
+//			courseRepository.save(c);
+//		};
+//	}
 
 }
