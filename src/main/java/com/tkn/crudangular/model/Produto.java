@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Entity
+@Table(name = "produto")
 public class Produto {
 
     @Id
@@ -30,5 +31,6 @@ public class Produto {
     private String descricao;
 
     @Column(length = 255, nullable = false)
-    private String numeracao;
+    private String img;
+
 }

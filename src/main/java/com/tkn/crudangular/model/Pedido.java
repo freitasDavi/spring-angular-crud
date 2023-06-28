@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @ToString
 @RequiredArgsConstructor
 @Entity
+@Table(name = "pedido")
 public class Pedido {
 
     @Id
