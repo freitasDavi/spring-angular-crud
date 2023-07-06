@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/produto")
 public class ProdutoController {
@@ -22,6 +24,12 @@ public class ProdutoController {
     @GetMapping
     public List<Produto> list (){
         return service.getAll();
+    }
+
+    @GetMapping("{id}")
+    public Optional<Produto> listById (@PathVariable long id){
+
+        return service.getById(id);
     }
 
     @PostMapping

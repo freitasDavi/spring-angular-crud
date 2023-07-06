@@ -1,12 +1,11 @@
 package com.tkn.crudangular.service;
 
-import com.tkn.crudangular.model.Pedido;
 import com.tkn.crudangular.model.Produto;
-import com.tkn.crudangular.repository.IPedidoRepository;
 import com.tkn.crudangular.repository.IProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -19,6 +18,10 @@ public class ProdutoService {
 
     public List<Produto> getAll(){
         return _produtoRepository.findAll();
+    }
+
+    public Optional<Produto> getById(long id) {
+        return _produtoRepository.findById(id);
     }
 
     public Produto create(Produto novoProduto){
