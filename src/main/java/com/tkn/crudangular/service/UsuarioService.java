@@ -1,5 +1,7 @@
 package com.tkn.crudangular.service;
 
+import com.tkn.crudangular.dtos.CreateUserDTO;
+import com.tkn.crudangular.dtos.UserLoginDTO;
 import com.tkn.crudangular.model.Pedido;
 import com.tkn.crudangular.model.Usuarios;
 import com.tkn.crudangular.repository.IPedidoRepository;
@@ -17,11 +19,20 @@ public class UsuarioService {
         _usuarioRepository = usuarioRepository;
     }
 
+    public Usuarios getOne(UserLoginDTO dto) {
+        return _usuarioRepository.findByEmailAndSenha(dto.login(), dto.password());
+    }
+
     public List<Usuarios> getAll(){
         return _usuarioRepository.findAll();
     }
 
-    public Usuarios create(Usuarios novoUsuario){
-        return _usuarioRepository.save(novoUsuario);
+    public Usuarios create(CreateUserDTO novoUsuario){
+
+        Usuarios user = new Usuarios(novoUsuario.nome(), novoUsuario.email(), novoUsuario.senha(),
+                novoUsuario.cidade(), novoUsuario.rua(), novoUsuario.bairro(), novoUsuario.cep(),
+                novoUsuario.cpf());
+
+        return _usuarioRepository.save(user);
     }
 }
